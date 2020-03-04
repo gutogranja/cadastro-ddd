@@ -18,9 +18,33 @@ namespace Cadastro.Apresentation.Wpf.ViewModels
         private readonly IAlunoService alunoService;
 
         public DelegateCommand IncluirCommand { get; set; }
+
         public DelegateCommand AlterarCommand { get; set; }
+
         public DelegateCommand ExcluirCommand { get; set; }
+
+        public DelegateCommand LimparTelaCommand { get; set; }
+
         public ProgressDialogController Progresso { get; set; }
+
+        private bool _modoEdicao = false;
+        public bool ModoEdicao
+        {
+            get { return _modoEdicao; }
+            set
+            {
+                SetProperty(ref _modoEdicao, value);
+            }
+        }
+        private bool _editarNome = true;
+        public bool EditarNome
+        {
+            get { return _editarNome; }
+            set
+            {
+                SetProperty(ref _editarNome, value);
+            }
+        }
 
         private List<AlunoView> _listaAluno;
         public List<AlunoView> ListaAluno
@@ -28,7 +52,6 @@ namespace Cadastro.Apresentation.Wpf.ViewModels
             get { return _listaAluno; }
             set { SetProperty(ref _listaAluno, value); }
         }
-
         private AlunoView _aluno = new AlunoView();
         public AlunoView Aluno
         {
@@ -36,6 +59,8 @@ namespace Cadastro.Apresentation.Wpf.ViewModels
             set
             {
                 SetProperty(ref _aluno, value);
+                ModoEdicao = _aluno?.Id > 0;
+                EditarNome = !_modoEdicao;
             }
         }
 
@@ -43,9 +68,10 @@ namespace Cadastro.Apresentation.Wpf.ViewModels
         {
             this.dialog = dialog;
             alunoService = new AlunoService(new AlunoRepository());
-            IncluirCommand = new DelegateCommand(Incluir);
-            AlterarCommand = new DelegateCommand(Alterar);
-            ExcluirCommand = new DelegateCommand(Excluir);
+            IncluirCommand = new DelegateCommand(Incluir, () => !ModoEdicao).ObservesProperty(() => ModoEdicao);
+            AlterarCommand = new DelegateCommand(Alterar, () => ModoEdicao).ObservesProperty(() => ModoEdicao);
+            ExcluirCommand = new DelegateCommand(Excluir, () => ModoEdicao).ObservesProperty(() => ModoEdicao);
+            LimparTelaCommand = new DelegateCommand(Limpar);
             BuscarAlunos();
         }
 
@@ -70,8 +96,9 @@ namespace Cadastro.Apresentation.Wpf.ViewModels
                 Progresso.SetIndeterminate();
                 var t = Task.Factory.StartNew(() => { BuscarAlunos(); });
                 await t;
-                Progresso?.CloseAsync();
+                await Progresso?.CloseAsync();
                 await this.dialog.ShowMessageAsync(this, "Atenção", "Aluno cadastrado com sucesso !!!");
+                Limpar();
             }
         }
 
@@ -87,8 +114,9 @@ namespace Cadastro.Apresentation.Wpf.ViewModels
                     Progresso.SetIndeterminate();
                     var t = Task.Factory.StartNew(() => { alunoService.Alterar(alunoExistente); });
                     await t;
-                    Progresso?.CloseAsync();
+                    await Progresso?.CloseAsync();
                     await this.dialog.ShowMessageAsync(this, "Atenção", "Aluno alterado com sucesso !!!");
+                    Limpar();
                 }
                 else
                 {
@@ -109,10 +137,10 @@ namespace Cadastro.Apresentation.Wpf.ViewModels
                     Progresso.SetIndeterminate();
                     var t = Task.Factory.StartNew(() => { alunoService.Excluir(alunoExistente.Id); });
                     await t;
-                    Progresso?.CloseAsync();
+                    await Progresso?.CloseAsync();
                     await this.dialog.ShowMessageAsync(this, "Atenção", "Aluno excluído com sucesso !!!");
-
-
+                    Limpar();
+                    BuscarAlunos();
                 }
                 else
                 {
@@ -120,6 +148,11 @@ namespace Cadastro.Apresentation.Wpf.ViewModels
                     alunoService.ClearNotifications();
                 }
             }
+        }
+
+        private void Limpar()
+        {
+            Aluno = new AlunoView();
         }
     }
 }

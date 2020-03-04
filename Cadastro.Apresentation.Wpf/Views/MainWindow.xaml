@@ -38,7 +38,7 @@
             <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" FontSize="15" Text="Endereço"/>
             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" FontSize="15" Text="Bairro"/>
             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" FontSize="15" Text="Cidade"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="5" IsEnabled="True" Text="{Binding Aluno.Nome, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Nome" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="5" IsEnabled="{Binding EditarNome}" Text="{Binding Aluno.Nome, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Nome" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding Aluno.Endereco, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="End." Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding Aluno.Bairro, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Bairro" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding Aluno.Cidade, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Cidade" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
@@ -54,13 +54,16 @@
             </DataGrid>
         </Grid>
         <Grid Grid.Row="2">
-            <StatusBar>
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="INCLUIR" Margin="5" Command="{Binding IncluirCommand}"></Button>
-                    <Button Content="ALTERAR" Margin="5" Command="{Binding AlterarCommand}"></Button>
-                    <Button Content="EXCLUIR" Margin="5" Command="{Binding ExcluirCommand}"></Button>
-                </StackPanel>
-            </StatusBar>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button Content="INCLUIR" Margin="5" ToolTip="Incluir dados do aluno" Command="{Binding IncluirCommand}"/>
+                <Button Content="ALTERAR" Margin="5" ToolTip="Alterar dados do aluno" Command="{Binding AlterarCommand}"/>
+                <Button Content="EXCLUIR" Margin="5" ToolTip="Excluir o aluno" Command="{Binding ExcluirCommand}"/>
+            </StackPanel>
+            <Button Grid.Column="1" Content="LIMPAR" Margin="5" ToolTip="Limpar dados da tela" Command="{Binding LimparTelaCommand}" HorizontalAlignment="Right"/>
         </Grid>
     </Grid>
 </Controls:MetroWindow>
