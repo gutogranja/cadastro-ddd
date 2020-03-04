@@ -38,7 +38,7 @@
             <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" FontSize="15" Text="Endereço"/>
             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" FontSize="15" Text="Bairro"/>
             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" FontSize="15" Text="Cidade"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="5" IsEnabled="xxxx" Text="{Binding Aluno.Nome, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Nome" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="5" IsEnabled="True" Text="{Binding Aluno.Nome, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Nome" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding Aluno.Endereco, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="End." Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding Aluno.Bairro, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Bairro" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
             <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding Aluno.Cidade, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Cidade" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
