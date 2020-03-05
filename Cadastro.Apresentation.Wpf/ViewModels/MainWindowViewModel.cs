@@ -145,7 +145,9 @@ namespace Cadastro.Apresentation.Wpf.ViewModels
                 else
                 {
                     await this.dialog.ShowMessageAsync(this, "Atenção", string.Join("\r\n", alunoExistente.Notifications.Select(s => s.Mensagem)));
-                    alunoService.ClearNotifications();
+                    alunoService.ClearNotifications();   
+
+
                 }
             }
         }
