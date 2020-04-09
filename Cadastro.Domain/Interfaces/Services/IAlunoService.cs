@@ -9,7 +9,7 @@ namespace Cadastro.Domain.Interfaces.Services
 
     public interface IAlunoService : INotificationService
     {
-        List<AlunoView> ListarTodos();
+        IEnumerable<AlunoView> ListarTodos();
         Aluno ObterPorId(int id);
         Aluno Incluir(Aluno aluno);
         Aluno Alterar(Aluno aluno);

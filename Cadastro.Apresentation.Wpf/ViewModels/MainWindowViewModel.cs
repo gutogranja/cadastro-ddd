@@ -77,7 +77,7 @@ namespace Cadastro.Apresentation.Wpf.ViewModels
 
         private void BuscarAlunos()
         {
-            ListaAluno = alunoService.ListarTodos();
+            ListaAluno = alunoService.ListarTodos().ToList();
         }
 
         private async void Incluir()
@@ -146,8 +146,6 @@ namespace Cadastro.Apresentation.Wpf.ViewModels
                 {
                     await this.dialog.ShowMessageAsync(this, "Atenção", string.Join("\r\n", alunoExistente.Notifications.Select(s => s.Mensagem)));
                     alunoService.ClearNotifications();   
-
-
                 }
             }
         }
@@ -155,6 +153,7 @@ namespace Cadastro.Apresentation.Wpf.ViewModels
         private void Limpar()
         {
             Aluno = new AlunoView();
+            BuscarAlunos();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Cadastro.Domain.Services
             this.repository = repository;
         }
 
-        public List<AlunoView> ListarTodos()
+        public IEnumerable<AlunoView> ListarTodos()
         {
             return repository.ListarTodos();
         }
@@ -64,7 +64,7 @@ namespace Cadastro.Domain.Services
         public void Excluir(int id)
         {
             var alunoExistente = repository.ObterPorId(id);
-            if(alunoExistente != null)
+            if (alunoExistente != null)
             {
                 repository.Excluir(id);
             }
@@ -73,7 +73,7 @@ namespace Cadastro.Domain.Services
                 AddNotification("aluno", "Não é possivel excluir um aluno que não existe.");
             }
         }
-                                    
+
         private void ValidarAluno(Aluno aluno)
         {
             if (aluno == null)

@@ -7,5 +7,6 @@ namespace Cadastro.Domain.Interfaces.Repositories
 
     public interface IAlunoRepository : IRepositoryBase<Aluno,AlunoView>
     {
+        bool VerificarNomeAluno(string nomeAluno);
     }
 }

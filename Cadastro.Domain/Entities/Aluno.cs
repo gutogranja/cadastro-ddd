@@ -9,9 +9,8 @@ namespace Cadastro.Domain.Entities
 
     [Table("Alunos")]
 
-    public class Aluno : NotificationService
+    public class Aluno : Entity
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         public string Endereco { get; set; }
         public string Bairro { get; set; }
@@ -30,16 +29,6 @@ namespace Cadastro.Domain.Entities
             if (string.IsNullOrEmpty(Nome))
                 AddNotification("aluno", "Nome do aluno é obrigatório.");
         }
-
-        //public Aluno(Aluno aluno)
-        //{
-        //    Nome = aluno.Nome;
-        //    Endereco = aluno.Endereco;
-        //    Bairro = aluno.Bairro;
-        //    Cidade = aluno.Cidade;
-        //    if (string.IsNullOrEmpty(Nome))
-        //        AddNotification("aluno", "Nome do aluno é obrigatório.");
-        //}
 
         public void AlterarNome(string nomeAluno)
         {

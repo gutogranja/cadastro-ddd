@@ -25,7 +25,7 @@ namespace Cadastro.Domain.Helpers
         {
             _notifications = new List<Notification>();
         }
-        public void AddNotification(IReadOnlyCollection<Notification> notifications)
+        public void AddNotification(IReadOnlyCollection<Notification> notifications)    
         {
             _notifications.AddRange(notifications);
         }
